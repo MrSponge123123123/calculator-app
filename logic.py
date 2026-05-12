@@ -33,7 +33,7 @@ def calculate_as_str(term: str) -> str:
     term = term.replace(" ", "")
 
     # check and solve brackets
-    if "(" in term and ")" in term:
+    while "(" in term and ")" in term:
         index_start: int = term.rfind("(")
         index_end: int = term.find(")", index_start)
 
