@@ -92,7 +92,7 @@ class CalculatorGui:
 
         # back button
         self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["back"])
-        self.button_clear.grid(row=5, column=0, padx=2, pady=2, sticky="nsew")
+        self.button_clear.grid(row=1, column=3, padx=2, pady=2, sticky="nsew")
 
         # open bracket button
         self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["("])
@@ -101,6 +101,10 @@ class CalculatorGui:
         # close bracket button
         self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"][")"])
         self.button_clear.grid(row=1, column=1, padx=2, pady=2, sticky="nsew")
+
+        # dot button
+        self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["."])
+        self.button_clear.grid(row=5, column=0, padx=2, pady=2, sticky="nsew")
 
 
         self.app.mainloop()
