@@ -13,7 +13,7 @@ class CalculatorGui:
         self.asset_config: dict = get_asset_config(self)
 
         # generate grid
-        self.rows: int = 5
+        self.rows: int = 6
         self.columns: int = 4
 
         for row in range(self.rows):
@@ -29,70 +29,78 @@ class CalculatorGui:
 
         # numbers
         button_number_9: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["numbers"]["9"])
-        button_number_9.grid(row=1, column=2, padx=2, pady=2, sticky="nsew")
+        button_number_9.grid(row=2, column=2, padx=2, pady=2, sticky="nsew")
         self.number_buttons[9] = button_number_9
 
         button_number_8: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["numbers"]["8"])
-        button_number_8.grid(row=1, column=1, padx=2, pady=2, sticky="nsew")
+        button_number_8.grid(row=2, column=1, padx=2, pady=2, sticky="nsew")
         self.number_buttons[8] = button_number_8
 
         button_number_7: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["numbers"]["7"])
-        button_number_7.grid(row=1, column=0, padx=2, pady=2, sticky="nsew")
+        button_number_7.grid(row=2, column=0, padx=2, pady=2, sticky="nsew")
         self.number_buttons[7] = button_number_7
 
         button_number_6: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["numbers"]["6"])
-        button_number_6.grid(row=2, column=2, padx=2, pady=2, sticky="nsew")
+        button_number_6.grid(row=3, column=2, padx=2, pady=2, sticky="nsew")
         self.number_buttons[6] = button_number_6
 
         button_number_5: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["numbers"]["5"])
-        button_number_5.grid(row=2, column=1, padx=2, pady=2, sticky="nsew")
+        button_number_5.grid(row=3, column=1, padx=2, pady=2, sticky="nsew")
         self.number_buttons[5] = button_number_5
 
         button_number_4: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["numbers"]["4"])
-        button_number_4.grid(row=2, column=0, padx=2, pady=2, sticky="nsew")
+        button_number_4.grid(row=3, column=0, padx=2, pady=2, sticky="nsew")
         self.number_buttons[4] = button_number_4
 
         button_number_3: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["numbers"]["3"])
-        button_number_3.grid(row=3, column=2, padx=2, pady=2, sticky="nsew")
+        button_number_3.grid(row=4, column=2, padx=2, pady=2, sticky="nsew")
         self.number_buttons[3] = button_number_3
 
         button_number_2: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["numbers"]["2"])
-        button_number_2.grid(row=3, column=1, padx=2, pady=2, sticky="nsew")
+        button_number_2.grid(row=4, column=1, padx=2, pady=2, sticky="nsew")
         self.number_buttons[2] = button_number_2
 
         button_number_1: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["numbers"]["1"])
-        button_number_1.grid(row=3, column=0, padx=2, pady=2, sticky="nsew")
+        button_number_1.grid(row=4, column=0, padx=2, pady=2, sticky="nsew")
         self.number_buttons[1] = button_number_1
 
         button_number_0: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["numbers"]["0"])
-        button_number_0.grid(row=4, column=1, padx=2, pady=2, sticky="nsew")
+        button_number_0.grid(row=5, column=1, padx=2, pady=2, sticky="nsew")
         self.number_buttons[0] = button_number_0
 
 
         # divide button
         self.button_divide: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["operators"]["/"])
-        self.button_divide.grid(row=1, column=3, padx=2, pady=2, sticky="nsew")
+        self.button_divide.grid(row=2, column=3, padx=2, pady=2, sticky="nsew")
 
         # multiplication button
         self.button_multiplication: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["operators"]["*"])
-        self.button_multiplication.grid(row=2, column=3, padx=2, pady=2, sticky="nsew")
+        self.button_multiplication.grid(row=3, column=3, padx=2, pady=2, sticky="nsew")
 
         # subtraction button
         self.button_subtraction: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["operators"]["-"])
-        self.button_subtraction.grid(row=3, column=3, padx=2, pady=2, sticky="nsew")
+        self.button_subtraction.grid(row=4, column=3, padx=2, pady=2, sticky="nsew")
 
         # addition button
         self.button_addition: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["operators"]["+"])
-        self.button_addition.grid(row=4, column=3, padx=2, pady=2, sticky="nsew")
+        self.button_addition.grid(row=5, column=3, padx=2, pady=2, sticky="nsew")
 
 
         # equals button
         self.button_equals: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["="])
-        self.button_equals.grid(row=4, column=2, padx=2, pady=2, sticky="nsew")
+        self.button_equals.grid(row=5, column=2, padx=2, pady=2, sticky="nsew")
 
         # back button
         self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["back"])
-        self.button_clear.grid(row=4, column=0, padx=2, pady=2, sticky="nsew")
+        self.button_clear.grid(row=5, column=0, padx=2, pady=2, sticky="nsew")
+
+        # open bracket button
+        self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["("])
+        self.button_clear.grid(row=1, column=0, padx=2, pady=2, sticky="nsew")
+
+        # close bracket button
+        self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"][")"])
+        self.button_clear.grid(row=1, column=1, padx=2, pady=2, sticky="nsew")
 
 
         self.app.mainloop()

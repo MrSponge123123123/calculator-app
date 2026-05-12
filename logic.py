@@ -32,6 +32,17 @@ def calculate_as_str(term: str) -> str:
     # remove all spaces
     term = term.replace(" ", "")
 
+    # check and solve brackets
+    if "(" in term and ")" in term:
+        index_start: int = term.rfind("(")
+        index_end: int = term.find(")", index_start)
+
+        bracket: str = term[index_start + 1:index_end]
+        result: str = calculate_as_str(bracket)
+
+        term = term[:index_start] + result + term[index_end + 1:]
+
+
     while any(op in term for op in ["*", "/", "+", "-"]):
         # check for multiplication
         if "*" in term:

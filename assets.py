@@ -100,6 +100,18 @@ def get_asset_config(gui) -> dict:
                     "master": gui.app,
                     "text": "back",
                     "command": lambda: gui.remove_last_char()
+                },
+
+                "(": {
+                    "master": gui.app,
+                    "text": "(",
+                    "command": lambda: gui.append("(")
+                },
+
+                ")": {
+                    "master": gui.app,
+                    "text": ")",
+                    "command": lambda: gui.append(")")
                 }
             }
         }
