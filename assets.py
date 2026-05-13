@@ -102,6 +102,12 @@ def get_asset_config(gui) -> dict:
                     "command": lambda: gui.remove_last_char()
                 },
 
+                "clear": {
+                    "master": gui.app,
+                    "text": "clear",
+                    "command": lambda: gui.label_calculation.configure(text="")
+                },
+
                 "(": {
                     "master": gui.app,
                     "text": "(",

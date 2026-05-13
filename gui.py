@@ -91,20 +91,24 @@ class CalculatorGui:
         self.button_equals.grid(row=5, column=2, padx=2, pady=2, sticky="nsew")
 
         # back button
-        self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["back"])
-        self.button_clear.grid(row=1, column=3, padx=2, pady=2, sticky="nsew")
+        self.button_back: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["back"])
+        self.button_back.grid(row=1, column=3, padx=2, pady=2, sticky="nsew")
+
+        # clear button
+        self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["clear"])
+        self.button_clear.grid(row=1, column=2, padx=2, pady=2, sticky="nsew")
 
         # open bracket button
-        self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["("])
-        self.button_clear.grid(row=1, column=0, padx=2, pady=2, sticky="nsew")
+        self.button_open_bracket: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["("])
+        self.button_open_bracket.grid(row=1, column=0, padx=2, pady=2, sticky="nsew")
 
         # close bracket button
-        self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"][")"])
-        self.button_clear.grid(row=1, column=1, padx=2, pady=2, sticky="nsew")
+        self.button_close_bracket: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"][")"])
+        self.button_close_bracket.grid(row=1, column=1, padx=2, pady=2, sticky="nsew")
 
         # dot button
-        self.button_clear: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["."])
-        self.button_clear.grid(row=5, column=0, padx=2, pady=2, sticky="nsew")
+        self.button_dot: ctk.CTkButton = ctk.CTkButton(**self.asset_config["buttons"]["special"]["."])
+        self.button_dot.grid(row=5, column=0, padx=2, pady=2, sticky="nsew")
 
 
         self.app.mainloop()
@@ -114,7 +118,10 @@ class CalculatorGui:
 
 
     def calculate(self) -> None:
-        self.label_calculation.configure(text=f"{calculate_as_str(self.label_calculation.cget("text"))}")
+        try:
+            self.label_calculation.configure(text=f"{calculate_as_str(self.label_calculation.cget("text"))}")
+        except Exception:
+            self.label_calculation.configure(text="Invalid")
 
 
     def remove_last_char(self) -> None:
