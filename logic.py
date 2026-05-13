@@ -32,6 +32,33 @@ def get_right_num_as_str(term:str, sign_index: int) -> list:
 
 
 def calculate_as_str(term: str) -> str:
+    def split_term(term: str) -> list:
+        split_term: list = []
+
+        number: str = ""
+        for index in range(len(term)):
+            # check if - is for a neg number
+            if term[index] == "-" and term[index + 1].isdigit() and (index - 1 == -1 or (
+                    not term[index - 1].isdigit() or (term[index - 1] == "(" or term[index - 1] == ")"))):
+                number += term[index]
+                continue
+
+            if term[index].isdigit() or term[index] == ".":
+                number += term[index]
+                continue
+
+            # add number to split term if there is no digit left
+            if number:
+                split_term.append(number)
+                number = ""
+
+            # add operator or parentheses to split term
+            split_term.append(term[index])
+
+        if number:
+            split_term.append(number)
+
+        return split_term
     def remove_unnecessary_float(num: str) -> str:
         if "." in num:
             while num[-1] == "0":
@@ -41,11 +68,11 @@ def calculate_as_str(term: str) -> str:
                 num = num.removesuffix(".")
 
         return num
-    def solve(term: str, operator: Literal["*", "/", "+", "-"]) -> str:
-        while operator in term:
-            sub_index: int = term.find(operator)
-            num_1_str, num_1_start_index = get_left_num_as_str(term, sub_index)
-            num_2_str, num_2_end_index = get_right_num_as_str(term, sub_index)
+    def solve(split_term: list, operator: Literal["*", "/", "+", "-"]) -> str:
+        while operator in split_term:
+            operator_index: int = split_term.index(operator)
+            num_1_str = split_term[operator_index - 1]
+            num_2_str = split_term[operator_index + 1]
 
             # parse to float
             num_1 = float(num_1_str)
@@ -64,18 +91,24 @@ def calculate_as_str(term: str) -> str:
 
             result_str = remove_unnecessary_float(str(result))
 
-            term = term[:num_1_start_index] + result_str + term[num_2_end_index + 1:]
+            split_term = split_term[:operator_index - 1] + [result_str] + split_term[operator_index + 2:]
 
-        return term
-    def solve_parentheses(term: str) -> str:
-        while "(" in term and ")" in term:
-            index_start: int = term.rfind("(")
-            index_end: int = term.find(")", index_start)
+        return split_term
+    def solve_parentheses(split_term: list) -> list:
+        def rindex(split_term: list, item) -> int:
+            for i in range(len(split_term) - 1, -1):
+                if split_term[i] == item:
+                    return i
+            return -1
 
-            inner: str = term[index_start + 1:index_end]
+        while "(" in split_term and ")" in split_term:
+            index_start: int = rindex(split_term, "(")
+            index_end: int = split_term.index(")", index_start)
+
+            inner: str = split_term[index_start + 1:index_end]
             result: str = calculate_as_str(inner)
 
-            term = term[:index_start] + result + term[index_end + 1:]
+            split_term = split_term[:index_start] + [result] + term[index_end + 1:]
 
         return term
 
@@ -83,10 +116,10 @@ def calculate_as_str(term: str) -> str:
     term = term.replace(" ", "")
 
     # solve term
-    term = solve_parentheses(term)
-    term = solve(term, "*")
-    term = solve(term, "/")
-    term = solve(term, "+")
-    term = solve(term, "-")
+    split_term = split_term(term)
+    split_term = solve(split_term, "*")
+    split_term = solve(split_term, "/")
+    split_term = solve(split_term, "+")
+    split_term = solve(split_term, "-")
 
-    return term
+    return split_term[0]
