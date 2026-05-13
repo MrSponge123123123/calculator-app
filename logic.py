@@ -41,7 +41,7 @@ def calculate_as_str(term: str) -> str:
                 num = num.removesuffix(".")
 
         return num
-    def solve(term: str, operator: Literal["*", "/", "+", "-"]):
+    def solve(term: str, operator: Literal["*", "/", "+", "-"]) -> str:
         while operator in term:
             sub_index: int = term.find(operator)
             num_1_str, num_1_start_index = get_left_num_as_str(term, sub_index)
@@ -67,21 +67,23 @@ def calculate_as_str(term: str) -> str:
             term = term[:num_1_start_index] + result_str + term[num_2_end_index + 1:]
 
         return term
+    def solve_parentheses(term: str) -> str:
+        while "(" in term and ")" in term:
+            index_start: int = term.rfind("(")
+            index_end: int = term.find(")", index_start)
+
+            inner: str = term[index_start + 1:index_end]
+            result: str = calculate_as_str(inner)
+
+            term = term[:index_start] + result + term[index_end + 1:]
+
+        return term
 
     # remove all spaces
     term = term.replace(" ", "")
 
-    # check and solve brackets
-    while "(" in term and ")" in term:
-        index_start: int = term.rfind("(")
-        index_end: int = term.find(")", index_start)
-
-        bracket: str = term[index_start + 1:index_end]
-        result: str = calculate_as_str(bracket)
-
-        term = term[:index_start] + result + term[index_end + 1:]
-
     # solve term
+    term = solve_parentheses(term)
     term = solve(term, "*")
     term = solve(term, "/")
     term = solve(term, "+")
