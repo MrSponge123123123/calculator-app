@@ -1,3 +1,6 @@
+from typing import Literal
+
+
 def get_left_num_as_str(term:str, sign_index: int) -> list:
     digits: list[str] = []
     offset: int = -1
@@ -38,58 +41,9 @@ def calculate_as_str(term: str) -> str:
                 num = num.removesuffix(".")
 
         return num
-    def solve_multiplication(term: str) -> str:
-        while "*" in term:
-            mul_index: int = term.find("*")
-            num_1_str, num_1_start_index = get_left_num_as_str(term, mul_index)
-            num_2_str, num_2_end_index = get_right_num_as_str(term, mul_index)
-
-            # pars to float
-            num_1 = float(num_1_str)
-            num_2 = float(num_2_str)
-
-            # get result and replace in term
-            result_str = str(num_1 * num_2)
-            result_str = remove_unnecessary_float(result_str)
-
-            term = term[:num_1_start_index] + result_str + term[num_2_end_index + 1:]
-
-        return term
-    def solve_division(term: str) -> str:
-        while "/" in term:
-            div_index: int = term.find("/")
-            num_1_str, num_1_start_index = get_left_num_as_str(term, div_index)
-            num_2_str, num_2_end_index = get_right_num_as_str(term, div_index)
-
-            # parse to float
-            num_1 = float(num_1_str)
-            num_2 = float(num_2_str)
-
-            # get result and replace in term
-            result_str = str(num_1 / num_2)
-            result_str = remove_unnecessary_float(result_str)
-            term = term[:num_1_start_index] + result_str + term[num_2_end_index + 1:]
-
-        return term
-    def solve_addition(term: str) -> str:
-        while "+" in term:
-            add_index: int = term.find("+")
-            num_1_str, num_1_start_index = get_left_num_as_str(term, add_index)
-            num_2_str, num_2_end_index = get_right_num_as_str(term, add_index)
-
-            # parse to float
-            num_1 = float(num_1_str)
-            num_2 = float(num_2_str)
-
-            # get result and replace in term
-            result_str = str(num_1 + num_2)
-            result_str = remove_unnecessary_float(result_str)
-            term = term[:num_1_start_index] + result_str + term[num_2_end_index + 1:]
-
-        return term
-    def solve_subtraction(term: str) -> str:
-        while "-" in term:
-            sub_index: int = term.find("-")
+    def solve(term: str, operator: Literal["*", "/", "+", "-"]):
+        while operator in term:
+            sub_index: int = term.find(operator)
             num_1_str, num_1_start_index = get_left_num_as_str(term, sub_index)
             num_2_str, num_2_end_index = get_right_num_as_str(term, sub_index)
 
@@ -98,8 +52,17 @@ def calculate_as_str(term: str) -> str:
             num_2 = float(num_2_str)
 
             # get result and replace in term
-            result_str = str(num_1 - num_2)
-            result_str = remove_unnecessary_float(result_str)
+            result = 0
+            if operator == "/":
+                result = num_1 / num_2
+            elif operator == "*":
+                result = num_1 * num_2
+            elif operator == "+":
+                result = num_1 + num_2
+            elif operator == "-":
+                result = num_1 - num_2
+
+            result_str = remove_unnecessary_float(str(result))
 
             term = term[:num_1_start_index] + result_str + term[num_2_end_index + 1:]
 
@@ -118,10 +81,10 @@ def calculate_as_str(term: str) -> str:
 
         term = term[:index_start] + result + term[index_end + 1:]
 
-
-    term = solve_multiplication(term)
-    term = solve_division(term)
-    term = solve_addition(term)
-    term = solve_subtraction(term)
+    # solve term
+    term = solve(term, "*")
+    term = solve(term, "/")
+    term = solve(term, "+")
+    term = solve(term, "-")
 
     return term
